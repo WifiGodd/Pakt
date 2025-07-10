@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pakt | Rise of Nations Roblox Discord Server</title>
+    <style>
+        :root {
+            --accent: #7289da;
+            --accent2: #5865f2;
+            --background-dark: #23272a;
+            --background-light: #f8f9fa;
+            --foreground-dark: #2c2f33;
+            --foreground-light: #fff;
+            --text-dark: #fff;
+            --text-light: #23272a;
+            --card-dark: #2c2f33;
+            --card-light: #f3f4f6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        body.light-mode {
+            color: var(--text-light);
+            background: var(--background-light);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background: rgba(44, 47, 51, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        body.light-mode header {
+            background: rgba(255,255,255,0.98);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        body.light-mode .nav-links a {
+            color: var(--text-light);
+        }
+        .cta-button {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 137, 218, 0.3);
+        }
+        .toggle-btn {
+            margin-left: 1.5rem;
+            background: transparent;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--accent2);
+            transition: color 0.3s;
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s 0.3s forwards;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s 0.6s forwards;
+        }
+        .demo-button {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .demo-button:hover {
+            background: white;
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .floating-shapes {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(255,255,255,0.07);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        .shape:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s;}
+        .shape:nth-child(2) { width: 60px; height: 60px; top: 60%; left: 80%; animation-delay: 2s;}
+        .shape:nth-child(3) { width: 100px; height: 100px; top: 30%; left: 70%; animation-delay: 4s;}
+        .features {
+            padding: 5rem 0;
+            background: var(--foreground-dark);
+        }
+        body.light-mode .features {
+            background: var(--foreground-light);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .feature-card {
+            background: var(--card-dark);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid #222;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.10);
+        }
+        body.light-mode .feature-card {
+            background: var(--card-light);
+            border: 1px solid #e9ecef;
+        }
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+        .feature-card h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        .feature-card p {
+            color: #b9bbbe;
+        }
+        body.light-mode .feature-card h3 {
+            color: #23272a;
+        }
+        body.light-mode .feature-card p {
+            color: #334;
+        }
+        .stats {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+            color: white;
+        }
+        body.light-mode .stats {
+            background: linear-gradient(135deg, var(--accent) 0%, #dbeafe 100%);
+            color: var(--text-light);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .cta-section {
+            padding: 5rem 0;
+            background: var(--foreground-dark);
+            text-align: center;
+        }
+        body.light-mode .cta-section {
+            background: var(--foreground-light);
+        }
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #b9bbbe;
+            margin-bottom: 2rem;
+        }
+        body.light-mode .cta-section h2 { color: #23272a;}
+        body.light-mode .cta-section p { color: #334;}
+        footer {
+            background: #23272a;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        .footer-section ul {
+            list-style: none;
+        }
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-section ul li a:hover {
+            color: var(--accent);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #999;
+        }
+        .made-by {
+            font-size: 1.2rem;
+            color: #fff;
+            padding-top: 1rem;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px);}
+            50% { transform: translateY(-20px);}
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none;}
+            .hero h1 { font-size: 2.1rem;}
+            .hero p { font-size: 1rem;}
+            .hero-buttons { flex-direction: column; align-items: center;}
+            .stats-grid { grid-template-columns: repeat(2, 1fr);}
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .modal.active {
+            display: flex;
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #23272a;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.3s;
+            color: #fff;
+        }
+        .modal.active .modal-content { transform: scale(1);}
+        body.light-mode .modal-content {
+            background: #fff;
+            color: #23272a;
+        }
+        .close-modal {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: none; border: none;
+            font-size: 1.5rem; cursor: pointer;
+            color: #b9bbbe;
+        }
+        .form-group { margin-bottom: 1rem; text-align: left;}
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #444;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #23272a;
+            color: #fff;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        body.light-mode .form-group label { color: #23272a;}
+        body.light-mode .form-group input, body.light-mode .form-group select {
+            background: #fff;
+            color: #23272a;
+            border: 1px solid #ddd;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 137, 218, 0.3);
+        }
+        .loading {
+            display: none;
+            width: 20px; height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">The Pakt</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Perks</a></li>
+                <li><a href="#stats">Stats</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="cta-button" onclick="openModal()">Join Now</button>
+            <button class="toggle-btn" id="modeToggle" title="Toggle dark/light mode">🌙</button>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to The Pakt Discord!</h1>
+                <p>
+                    Hang out, plan wars, share memes, and dominate in Rise of Nations Roblox.<br>
+                    Chill vibes, active events, and a squad that always has your back.
+                </p>
+                <div class="hero-buttons">
+                    <button class="cta-button" onclick="openModal()">Join Our Server</button>
+                    <button class="demo-button" onclick="showDemo()">See the Server</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: #fff;">Why Join The Pakt?</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: #b9bbbe; margin-bottom: 2rem;">
+                We’re not just a server—we’re a community. Here’s what you get!
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Chill & War Channels</h3>
+                    <p>Hop into voice, text, or war rooms—no matter if you're strategizing or just vibing with friends.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Alliances & Events</h3>
+                    <p>Join daily events, tournaments, and alliance wars. Prizes, bragging rights, and epic moments included.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎉</div>
+                    <h3>Active Mods</h3>
+                    <p>Friendly mods and fair rules. Zero toxicity, maximum fun. Trolls get the boot. Simple as that.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>International Crew</h3>
+                    <p>Play with folks from all over—early birds, night owls, and everyone in between.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Instant Updates</h3>
+                    <p>Stay in the loop with server news, RoN patches, and meme drops—no FOMO here.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Memes & Music</h3>
+                    <p>Share your favorite memes, drop a song in music, or just spam GPO emojis. We love it all.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats" id="stats">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Server Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="3254">0</div>
+                    <div class="stat-label">Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">Active Mods</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="162">0</div>
+                    <div class="stat-label">Total Events Hosted</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="11">0</div>
+                    <div class="stat-label">Month Running</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Join The Pakt?</h2>
+                <p>Click below, fill your username, and hop into the best RoN community on Discord.<br>
+                Wars, memes, and friends await. What are you waiting for?</p>
+                <button class="cta-button" onclick="openModal()">Get Invite Link</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Pakt</h3>
+                    <p>Rise of Nations Roblox Discord. Play, chat, laugh, and conquer with us!</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Server</h3>
+                    <ul>
+                        <li><a href="#features">Perks</a></li>
+                        <li><a href="#stats">Stats</a></li>
+                        <li><a href="#" onclick="openModal()">Join</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Rules</a></li>
+                        <li><a href="#">Staff</a></li>
+                        <li><a href="#">History</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">RoN Game</a></li>
+                        <li><a href="#">Suggestions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Pakt Discord. All rights reserved. | <span style="opacity:0.7;">This is a fan project, not official.</span></p>
+                <div class="made-by">Made by 🫑WiFi God🫑</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h2>Get Your Server Invite</h2>
+            <p>Drop your username and get your invite. See you inside!</p>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="fullName">Discord Username</label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="user#1234">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email (optional)</label>
+                    <input type="email" id="email" name="email" placeholder="(for announcements)">
+                </div>
+                <div class="form-group">
+                    <label for="favorite">Favorite RoN Nation</label>
+                    <input type="text" id="favorite" name="favorite" required placeholder="e.g. Germany">
+                </div>
+                <div class="form-group">
+                    <label for="role">How did you find us?</label>
+                    <select id="role" name="role" required>
+                        <option value="">Pick one</option>
+                        <option value="friend">Friend Invite</option>
+                        <option value="roblox">Roblox Chat</option>
+                        <option value="discord">Another Discord</option>
+                        <option value="reddit">Reddit</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span class="btn-text">Get Invite Link</span>
+                    <div class="loading"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle
+        const modeToggle = document.getElementById('modeToggle');
+        const body = document.body;
+        let isLight = false;
+        modeToggle.addEventListener('click', function() {
+            isLight = !isLight;
+            body.classList.toggle('light-mode', isLight);
+            modeToggle.textContent = isLight ? "☀️" : "🌙";
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === "#") return;
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            });
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = body.classList.contains('light-mode')
+                    ? 'rgba(255,255,255,0.98)' : 'rgba(44,47,51,0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = body.classList.contains('light-mode')
+                    ? 'rgba(255,255,255,0.98)' : 'rgba(44,47,51,0.98)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Animated counter for stats
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, 16);
+        }
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const target = parseFloat(stat.getAttribute('data-target'));
+                        animateCounter(stat, target);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Modal functions
+        function openModal() {
+            const modal = document.getElementById('signupModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            const modal = document.getElementById('signupModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        document.getElementById('signupModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const loading = submitBtn.querySelector('.loading');
+            btnText.style.display = 'none';
+            loading.style.display = 'block';
+            submitBtn.disabled = true;
+            setTimeout(() => {
+                loading.style.display = 'none';
+                btnText.style.display = 'block';
+                btnText.textContent = 'Invite Sent! 🎉';
+                submitBtn.style.background = '#43b581';
+                submitBtn.disabled = false;
+                setTimeout(() => {
+                    this.reset();
+                    btnText.textContent = 'Get Invite Link';
+                    submitBtn.style.background = '';
+                    closeModal();
+                }, 2000);
+            }, 1500);
+        });
+
+        // Demo function
+        function showDemo() {
+            alert('🎬 Here you’d see a quick server tour: channels, memes, voice chats, and live events. (Pretend a video plays!)');
+        }
+
+        // Feature card hover
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Floating shapes
+        function createFloatingShape() {
+            const shape = document.createElement('div');
+            shape.className = 'shape';
+            shape.style.width = Math.random() * 60 + 40 + 'px';
+            shape.style.height = shape.style.width;
+            shape.style.left = Math.random() * 100 + '%';
+            shape.style.top = Math.random() * 100 + '%';
+            shape.style.animationDuration = Math.random() * 4 + 4 + 's';
+            shape.style.animationDelay = Math.random() * 2 + 's';
+            document.querySelector('.floating-shapes').appendChild(shape);
+            setTimeout(() => { shape.remove(); }, 8000);
+        }
+        setInterval(createFloatingShape, 3000);
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Feature card entrance animations
+        const featureObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 200);
+                }
+            });
+        });
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            featureObserver.observe(card);
+        });
+
+        // Console welcome message
+        console.log('%c👋 Welcome to The Pakt Discord! 👋', 'color: #7289da; font-size: 20px; font-weight: bold;');
+        console.log('%cFan-made RoN server website. Hang out, have fun, and conquer together!', 'color: #5865f2; font-size: 14px;');
+        console.log('%cFeatures: Discord vibes, live stats, smooth UI, and more!', 'color: #fff; font-size: 12px;');
+    </script>
+</body>
+</html>
